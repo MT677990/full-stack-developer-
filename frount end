@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <style>
+    /* Add your CSS styles here */
+  </style>
+</head>
+<body>
+  <h1>Task Manager</h1>
+  <ul id="task-list"></ul>
+  <form id="task-form">
+    <input type="text" id="title" placeholder="Title" required>
+    <input type="text" id="description" placeholder="Description" required>
+    <input type="date" id="dueDate" required>
+    <button type="submit">Add Task</button>
+  </form>
+
+  <script>
+    const taskList = document.getElementById('task-list');
+    const taskForm = document.getElementById('task-form');
+
+    taskForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('title').value;
+      const description = document.getElementById('description').value;
+      const dueDate = document.getElementById('dueDate').value;
+
+      const response = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title, description, dueDate })
+      });
+      
+      const data = await response.json();
+      console.log(data);
+      // Implement logic to display the newly added task
+    });
+
+    // Implement logic to fetch tasks and display them on the page
+  </script>
+</body>
+</html>
